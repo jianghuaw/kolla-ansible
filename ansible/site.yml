@@ -302,6 +302,15 @@
         tags: cinder,
         when: enable_cinder | bool }
 
+- name: Apply role nova-xenapi
+  gather_facts: false
+  hosts: compute
+  serial: '{{ serial|default("0") }}'
+  roles:
+    - { role: nova-xenapi,
+        tags: nova-xenapi,
+        when: nova_compute_virt_type == "xenapi" }
+
 - name: Apply role nova
   gather_facts: false
   hosts:

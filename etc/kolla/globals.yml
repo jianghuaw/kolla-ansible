@@ -311,7 +311,7 @@ kolla_internal_vip_address: "10.10.10.254"
 ########################
 #nova_backend_ceph: "{{ enable_ceph }}"
 
-# Valid options are [ qemu, kvm, vmware ]
+# Valid options are [ qemu, kvm, vmware, xenapi ]
 #nova_compute_virt_type: "kvm"
 
 #################
@@ -371,6 +371,14 @@ tempest_floating_network_name:
 
 # tempest_image_alt_id: "{{ tempest_image_id }}"
 # tempest_flavor_ref_alt_id: "{{ tempest_flavor_ref_id }}"
+
+###################################
+# XenAPI - OpenStack XenAPI support
+###################################
+xenapi_connection_url = "http://169.254.0.1"
+xenapi_connection_username = "root"
+xenapi_connection_password = "xenroot"
+
 
 ###################################
 # VMware - OpenStack VMware support

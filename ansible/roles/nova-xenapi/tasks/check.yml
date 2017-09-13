@@ -1,0 +1,11 @@
+---
+- name: Prepare HIMN
+  hosts: compute
+  tasks:
+  - copy:
+      src: /root/xenapi/prepareHIMN.sh
+      dest: /usr/bin/prepareHIMN
+      owner: root
+      group: root
+      mode: 0755
+  - script: /usr/bin/prepareHIMN

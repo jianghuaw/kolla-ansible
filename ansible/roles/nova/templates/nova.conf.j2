@@ -33,6 +33,8 @@ host = {{ ansible_hostname }}_{{ service_name }}
 compute_driver = fake.FakeDriver
 {% elif nova_compute_virt_type == 'vmware' %}
 compute_driver = vmwareapi.VMwareVCDriver
+{% elif nova_compute_virt_type == 'xenapi' %}
+compute_driver = xenapi.XenAPIDriver
 {% else %}
 compute_driver = libvirt.LibvirtDriver
 {% endif %}
@@ -191,6 +193,15 @@ insecure = {{ vmware_vcenter_insecure }}
 {% if not vmware_vcenter_insecure | bool %}
 ca_file = /etc/nova/vmware_ca
 {% endif %}
+{% endif %}
+
+{% if nova_compute_virt_type == "xenapi" %}
+[xenserver]
+ovs_integration_bridge = br-int
+vif_driver = nova.virt.xenapi.vif.XenAPIOpenVswitchDriver
+connection_password = {{ xenapi_connection_password }}
+connection_username = {{ xenapi_connection_username }}
+connection_url = {{ xenapi_connection_url }}
 {% endif %}
 
 [upgrade_levels]
