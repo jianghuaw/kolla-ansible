@@ -1,1 +1,11 @@
 ---
+- name: Prepare HIMN script
+  copy:
+    src: /root/xenapi/prepareHIMN.sh
+    dest: /usr/bin/prepareHIMN
+    owner: root
+    group: root
+    mode: 0755
+- name: execute HIMN script
+  script: /usr/bin/prepareHIMN
+

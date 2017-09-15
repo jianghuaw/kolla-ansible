@@ -1,0 +1,21 @@
+[DEFAULT]
+host = xrtmia-03-12
+
+[agent]
+minimize_polling = False
+tunnel_types = vxlan
+root_helper_daemon = xenapi_root_helper
+root_helper =
+
+[ovs]
+ovsdb_connection = tcp:169.254.0.1:6640
+integration_bridge = br-int
+datapath_type = system
+bridge_map:qpings =
+tunnel_bridge = br-tun
+local_ip = 10.62.17.12
+
+[xenapi]
+connection_password = xenroot
+connection_username = root
+connection_url = http://169.254.0.1
