@@ -375,9 +375,11 @@ tempest_floating_network_name:
 ###################################
 # XenAPI - OpenStack XenAPI support
 ###################################
-xenapi_connection_url = "http://169.254.0.1"
-xenapi_connection_username = "root"
-xenapi_connection_password = "xenroot"
+xenapi_connection_url: "http://169.254.0.1"
+xenapi_connection_username: "root"
+xenapi_connection_password: "xenroot"
+xenapi_dom0_hostname: ""
+xenapi_dom0_ip: ""
 
 
 ###################################

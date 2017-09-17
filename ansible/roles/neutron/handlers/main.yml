@@ -56,15 +56,15 @@
       or policy_json | changed
       or neutron_openvswitch_agent_container | changed
 
-- name: Restart neutron-openvswitch-agent-domua container
+- name: Restart neutron-openvswitch-remote-agent container
   vars:
-    service_name: "neutron-openvswitch-agent-domua"
+    service_name: "neutron-openvswitch-remote-agent"
     service: "{{ neutron_services[service_name] }}"
     config_json: "{{ neutron_config_jsons.results|selectattr('item.key', 'equalto', service_name)|first }}"
     neutron_conf: "{{ neutron_confs.results|selectattr('item.key', 'equalto', service_name)|first }}"
     neutron_ml2_conf: "{{ neutron_ml2_confs.results|selectattr('item.key', 'equalto', service_name)|first }}"
     policy_json: "{{ policy_jsons.results|selectattr('item.key', 'equalto', service_name)|first }}"
-    neutron_openvswitch_agent_domua_container: "{{ check_neutron_containers.results|selectattr('item.key', 'equalto', service_name)|first }}"
+    neutron_openvswitch_remote_agent_container: "{{ check_neutron_containers.results|selectattr('item.key', 'equalto', service_name)|first }}"
   kolla_docker:
     action: "recreate_or_restart_container"
     common_options: "{{ docker_common_options }}"
@@ -80,7 +80,7 @@
       or neutron_conf | changed
       or neutron_ml2_conf | changed
       or policy_json | changed
-      or neutron_openvswitch_agent_domua_container | changed
+      or neutron_openvswitch_remote_agent_container | changed
 
 - name: Restart fake neutron-openvswitch-agent container
   vars:

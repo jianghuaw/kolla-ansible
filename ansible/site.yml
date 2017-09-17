@@ -55,6 +55,14 @@
     - role: prechecks
       when: action == "precheck"
 
+# Jianghuaw: this is to put xenapi compute specific things
+# into the centralized place.
+# It looks good for non-openstack-service things: e.g. HIMN;
+# but for openstack service relative staff, it's better to
+# put the xenapi specific operations into each service. e.g.
+# the remote openvswitch agent.
+# If finally we found there is no much things need a separate
+# role, we can consider to go without this new role.
 - name: Apply role nova-xenapi
   gather_facts: false
   hosts: compute

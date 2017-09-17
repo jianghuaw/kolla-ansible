@@ -1,5 +1,9 @@
 # nova.conf
 [DEFAULT]
+{% if nova_compute_virt_type == 'xenapi' and service_name == "nova-compute" %}
+host = {{ xenapi_dom0_hostname }}
+{% endif %}
+
 debug = {{ nova_logging_debug }}
 
 log_dir = /var/log/kolla/nova

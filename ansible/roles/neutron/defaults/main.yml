@@ -40,8 +40,8 @@ neutron_services:
       - "/lib/modules:/lib/modules:ro"
       - "/run:/run:shared"
       - "kolla_logs:/var/log/kolla/"
-  neutron-openvswitch-agent-domua:
-    container_name: "neutron_openvswitch_agent_domua"
+  neutron-openvswitch-remote-agent:
+    container_name: "neutron_openvswitch_remote_agent"
     image: "{{ neutron_openvswitch_agent_image_full }}"
     enabled: "{{ neutron_plugin_agent == 'openvswitch' }}"
     privileged: True
@@ -50,7 +50,7 @@ neutron_services:
        inventory_hostname in groups['compute']
       }}
     volumes:
-      - "{{ node_config_directory }}/neutron-openvswitch-agent-domua/:{{ container_config_directory }}/:ro"
+      - "{{ node_config_directory }}/neutron-openvswitch-remote-agent/:{{ container_config_directory }}/:ro"
       - "/etc/localtime:/etc/localtime:ro"
       - "/lib/modules:/lib/modules:ro"
       - "/run:/run:shared"

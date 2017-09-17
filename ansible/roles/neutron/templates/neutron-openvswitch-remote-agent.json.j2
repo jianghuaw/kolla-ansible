@@ -1,6 +1,3 @@
-# I believe using neutron-openvswitch-remote-agent is better than xxx-domua.
-# neutron-openvswitch-remote-agent is a agent connected to a remote host (here it's XS dom0 for our case)
-# Just keep it at here for reference.
 {
     "command": "neutron-openvswitch-agent --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini",
     "config_files": [
@@ -26,7 +23,7 @@
     ],
     "permissions": [
         {
-            "path": "/var/log/kolla/neutron",
+            "path": "/var/log/kolla/neutron/remote",
             "owner": "neutron:neutron",
             "recurse": true
         }

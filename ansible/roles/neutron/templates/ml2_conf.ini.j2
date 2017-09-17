@@ -1,4 +1,11 @@
 # ml2_conf.ini
+{% if service_name == "neutron-openvswitch-remote-agent" %}
+# use registered hostname from remote host
+[DEFAULT]
+host = {{ xenapi_dom0_hostname }}
+log_dir = /var/log/kolla/neutron/remote
+{% endif %}
+
 [ml2]
 # Changing type_drivers after bootstrap can lead to database inconsistencies
 type_drivers = {{ neutron_type_drivers }}
@@ -61,8 +68,15 @@ firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 {% if not enable_hyperv | bool %}
 [agent]
 tunnel_types = vxlan
+{% if nova_compute_virt_type != 'xenapi' %}
 l2_population = true
+{% endif %}
 arp_responder = true
+{% if nova_compute_virt_type == 'xenapi' and service_name == "neutron-openvswitch-remote-agent" %}
+minimize_polling = False
+root_helper_daemon = xenapi_root_helper
+root_helper =
+{% endif %}
 {% endif %}
 
 {% if enable_neutron_dvr | bool %}
@@ -74,11 +88,22 @@ extensions = {{ neutron_agent_extensions|map(attribute='name')|join(',') }}
 {% endif %}
 
 [ovs]
+{% if service_name == "neutron-openvswitch-remote-agent" %}
+of_listen_address = 169.254.0.2
+ovsdb_connection = tcp:169.254.0.1:{{ ovsdb_port }}
+bridge_mappings = 
+tunnel_bridge = br-tun
+local_ip = {{ xenapi_dom0_ip }}
+{% else %}
+
 {% if inventory_hostname in groups["network"] or (inventory_hostname in groups["compute"] and computes_need_external_bridge ) %}
 bridge_mappings = {% for bridge in neutron_bridge_name.split(',') %}physnet{{ loop.index0 + 1 }}:{{ bridge }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endif %}
 
 ovsdb_connection = tcp:127.0.0.1:{{ ovsdb_port }}
+
+{% endif %}
+
 {% if enable_nova_fake | bool %}
 integration_bridge = br-int-{{ item }}
 {% endif %}
@@ -92,6 +117,15 @@ l2_population = true
 {% endif %}
 {% endif %}
 
+{% if service_name == "neutron-openvswitch-agent" %}
 {% if inventory_hostname in groups["network"] or inventory_hostname in groups["compute"] %}
 local_ip = {{ tunnel_interface_address }}
+{% endif %}
+{% endif %}
+
+{% if nova_compute_virt_type == 'xenapi' and service_name == "neutron-openvswitch-remote-agent" %}
+[xenapi]
+connection_password = xenroot
+connection_username = root
+connection_url = http://169.254.0.1
 {% endif %}

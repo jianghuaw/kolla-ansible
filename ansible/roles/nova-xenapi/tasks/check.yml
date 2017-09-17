@@ -1,11 +1,4 @@
 ---
-- name: Prepare HIMN
-  hosts: compute
-  tasks:
-  - copy:
-      src: /root/xenapi/prepareHIMN.sh
-      dest: /usr/bin/prepareHIMN
-      owner: root
-      group: root
-      mode: 0755
-  - script: /usr/bin/prepareHIMN
+# TODO: add nova-xenapi specific checks here; or add checks to the role of nova
+# conditionally when nova_compute_virt_type is xenapi.
+

@@ -633,8 +633,11 @@ ceph_cache_rule: "cache host firstn"
 xenapi_connection_url: "http://169.254.0.1"
 xenapi_connection_username: "root"
 xenapi_connection_password: "xenroot"
+
+# TODO (jianghuaw): get the following entries automatically from dom0 via the
+# HIMN connection.
 xenapi_dom0_hostname: "xrtmia-03-12"
-xenapi_dom0_ip: "169.254.0.1"
+xenapi_dom0_ext_ip: ""
 
 ################################################
 # VMware - OpenStack VMware support
