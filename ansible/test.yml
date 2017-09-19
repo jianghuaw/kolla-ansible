@@ -1,0 +1,9 @@
+- name: Apply role nova-xenapi
+  gather_facts: false
+  hosts: compute
+  roles:
+    - role: nova-xenapi
+      when:
+        - nova_compute_virt_type == "xenapi"
+        - action == "config"
+
