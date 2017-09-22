@@ -123,8 +123,6 @@ def main(argv):
     execute('iptables', '-t', 'filter', '-S', 'FORWARD')
     execute('iptables', '-t', 'nat', '-S', 'POSTROUTING')
 
-    gate_way = ssh(HIMN_IP, 'root', "/sbin/route", "-n")
-    ssh(HIMN_IP, 'root', "/sbin/route","add","-net","192.168.1.0","netmask","255.255.255.0","gw","169.254.0.2")
 
 if __name__ == '__main__':
     main(sys.argv[1:])

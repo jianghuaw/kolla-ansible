@@ -2,6 +2,9 @@
 - name: Config HIMN for xenapi
   script: prepareHIMN.py -i {{ network_interface }}
 
+- name: Config iptables in dom0
+  script: configure_dom0_iptables.sh
+
 - name: Install dom0 plugins
   script: installDom0Plugins.sh
 
