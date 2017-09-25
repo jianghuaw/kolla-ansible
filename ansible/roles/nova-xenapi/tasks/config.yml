@@ -11,6 +11,12 @@
 - name: Enable conntrack Service
   script: enable_conntrack_service.sh
 
+- name: Create log path for the remote openvswitch agent
+  file:
+    path: /var/lib/docker/volumes/kolla_logs/_data/neutron/remote
+    state: directory
+    recurse: yes
+
 #- name: Prepare HIMN script
 #  copy:
 #    src: prepareHIMN.sh
