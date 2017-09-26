@@ -6,7 +6,7 @@
   script: configure_dom0_iptables.sh
 
 - name: Install dom0 plugins
-  script: installDom0Plugins.sh
+  script: installDom0Plugins.sh {{ nova_compute_image_full }}
 
 - name: Enable conntrack Service
   script: enable_conntrack_service.sh

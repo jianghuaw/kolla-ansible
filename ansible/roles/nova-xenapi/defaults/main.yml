@@ -23,3 +23,5 @@ neutron_services:
       - "/run:/run:shared"
       - "kolla_logs:/var/log/kolla/"
 
+nova_compute_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ kolla_install_type }}-nova-compute"
+nova_compute_image_full: "{{ nova_compute_image }}:{{ openstack_release }}"
